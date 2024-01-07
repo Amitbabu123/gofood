@@ -46,17 +46,21 @@
 require('dotenv').config();
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 const PORT = process.env.PORT || 5000; // Use process.env.PORT for Heroku deployment or set a default value
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 
 const connectToDB = require("./db");
 
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', BASE_URL);
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    next();
-});
+// app.use(cors({ origin: "*" }));
+
+// app.use((req, res, next) => {
+//     res.setHeader('Access-Control-Allow-Origin', BASE_URL);
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     next();
+// });
+app.use(cors({ origin: BASE_URL, credentials: true }));
 
 // Connect to MongoDB
 connectToDB();
