@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import '../node_modules/bootstrap-dark-5/dist/css/bootstrap-dark.min.css'  //npm i bootstrap-dark-5 boostrap
+import '../node_modules/bootstrap/dist/js/bootstrap.bundle';
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
+import Home from './screens/Home';
+import Login from './screens/Login';
+import SignUp from './screens/SignUp.js';
+import { CartProvider } from './components/ContextReducer.js';
+import MyOrder from "./screens/MyOrder.js";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <CartProvider>
+        <div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/createuser" element={<SignUp />} />
+            <Route path="/myOrder" element={<MyOrder />} />
+          </Routes>
+        </div>
+      </CartProvider>
+    </Router>
   );
 }
 
