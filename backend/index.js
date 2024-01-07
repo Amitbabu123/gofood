@@ -42,51 +42,21 @@
 
 
 
-// // index.js
-// require('dotenv').config();
-// const express = require("express");
-// const app = express();
-
-// const PORT = process.env.PORT || 5000; // Use process.env.PORT for Heroku deployment or set a default value
-// const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
-
-// const connectToDB = require("./db");
-
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', BASE_URL);
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//     next();
-// });
-
-// // Connect to MongoDB
-// connectToDB();
-
-// app.use(express.json());
-
-// // Use the routes defined in CreateUser.js, DisplayData.js, and OrderData.js
-// app.use("/api", require("./Routes/CreateUser"));
-// app.use("/api", require("./Routes/DisplayData"));
-// app.use("/api", require("./Routes/OrderData"));
-
-// app.get("/", (req, res) => {
-//     res.send("Hello World!");
-// });
-
-// app.listen(PORT, () => {
-//     console.log(`Example app listening on port ${PORT}`);
-// });
-
+// index.js
 require('dotenv').config();
 const express = require("express");
-const cors = require("cors");
-const connectToDB = require("./db");
-
 const app = express();
-const PORT = process.env.PORT || 5000;
+
+const PORT = process.env.PORT || 5000; // Use process.env.PORT for Heroku deployment or set a default value
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 
-// Enable CORS for all routes
-app.use(cors({ origin: BASE_URL, credentials: true }));
+const connectToDB = require("./db");
+
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', BASE_URL);
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 
 // Connect to MongoDB
 connectToDB();
@@ -105,4 +75,34 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`Example app listening on port ${PORT}`);
 });
+
+// require('dotenv').config();
+// const express = require("express");
+// const cors = require("cors");
+// const connectToDB = require("./db");
+
+// const app = express();
+// const PORT = process.env.PORT || 5000;
+// const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
+
+// // Enable CORS for all routes
+// app.use(cors({ origin: BASE_URL, credentials: true }));
+
+// // Connect to MongoDB
+// connectToDB();
+
+// app.use(express.json());
+
+// // Use the routes defined in CreateUser.js, DisplayData.js, and OrderData.js
+// app.use("/api", require("./Routes/CreateUser"));
+// app.use("/api", require("./Routes/DisplayData"));
+// app.use("/api", require("./Routes/OrderData"));
+
+// app.get("/", (req, res) => {
+//     res.send("Hello World!");
+// });
+
+// app.listen(PORT, () => {
+//     console.log(`Example app listening on port ${PORT}`);
+// });
 
